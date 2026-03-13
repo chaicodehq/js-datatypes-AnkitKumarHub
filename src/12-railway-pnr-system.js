@@ -99,21 +99,17 @@ export function processRailwayPNR(pnrData) {
       isConfirmed: statusLabel === "CONFIRMED"
     };
   });
-
   const confirmed = passengers.filter(p => p.statusLabel === "CONFIRMED").length;
   const waiting = passengers.filter(p => p.statusLabel === "WAITING").length;
   const cancelled = passengers.filter(p => p.statusLabel === "CANCELLED").length;
   const rac = passengers.filter(p => p.statusLabel === "RAC").length;
-
   const summary = {
     totalPassengers: passengers.length,
     confirmed, waiting, cancelled, rac,
     allConfirmed: passengers.every(p => p.isConfirmed),
     anyWaiting: passengers.some(p => p.statusLabel === "WAITING")
   };
-
   const nonCancelled = passengers.filter(p => p.statusLabel !== "CANCELLED");
   const chartPrepared = nonCancelled.every(p => p.isConfirmed);
-
   return { pnrFormatted, trainInfo, passengers, summary, chartPrepared };
 }
